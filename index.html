@@ -1,47 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Currency Exchange</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
-    <script>
-        function convert() {
-            var fromAmount = document.getElementById('fromAmt').value;
-            console.log(fromAmount);
-            var toAmount = document.getElementById('toAmt').value;
-            var from = document.getElementById('fromCur').value;
-            var to = document.getElementById('toCur').value;
-            var XHR = new XMLHttpRequest();
-            var code = from + "_" + to;
-            var url = "https://free.currencyconverterapi.com/api/v6/convert?q=" + code + "&compact=ultra&apiKey=8a6ea31b37387bd5df83";
-            XHR.open("GET", url, true);
-            XHR.send();
-            XHR.onreadystatechange = function() {
-                if (XHR.readyState == 4 && XHR.status == 200) {
-                    var result = XHR.responseText;
-                    var jsResult = JSON.parse(result);
-                    var conversion = jsResult[code];
-//                                    console.log(conversion);
-                    var value=fromAmount * conversion;
-                    console.log(value);
-                    document.getElementById('toAmt').value= value;
-//            console.log(fromAmount.value);
-                }
-            }
-            
-        }
-    </script>
+    <script src="index.js"></script>
 </head>
 
-<body>
+<body onload="convert()">
     <div class="container">
+       <h1>Currency Coverter</h1>
         <table>
             <tr>
                 <td>
-                    <input type="text" id="fromAmt" value="1">
+                    <input type="text" id="fromAmt" value="1" class="form-control">
                 </td>
                 <td>
-                    <select name="" id="fromCur">
+                    <select id="fromCur" class="form-control">
                         <option value="USD" selected="selected">United States Dollars</option>
                         <option value="EUR">Euro</option>
                         <option value="GBP">United Kingdom Pounds</option>
@@ -124,15 +101,15 @@
                     </select>
                 </td>
                 <td>
-                    <button id="btn" onclick="convert()">Convert!</button>
+
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="toAmt" value="">
+                    <input type="text" id="toAmt" value="" class="form-control">
                 </td>
                 <td>
-                    <select name="" id="toCur" onchange="convert();">
+                    <select class="form-control" id="toCur">
                         <option value="USD">United States Dollars</option>
                         <option value="EUR">Euro</option>
                         <option value="GBP">United Kingdom Pounds</option>
@@ -216,5 +193,6 @@
                 </td>
             </tr>
         </table>
+        <button id="btn" onclick="convert()">Convert!</button>
     </div>
 </body></html>
